@@ -79,7 +79,7 @@ function Nbar() {
         {/* Menú para pantallas grandes */}
         <Box sx={{ display: { xs: 'none', md: 'flex' } }}> 
           <Button color="inherit" onClick={() => scrollToSection('about')} >Sobre mí...</Button>
-          <Button color="inherit" onClick={() => scrollToSection('proyects')}>Proyectos</Button>
+          <Button color="inherit" onClick={() => scrollToSection('proyect')}>Proyectos</Button>
           <Button color="inherit" onClick={() => scrollToSection('contact')}>Contactame</Button>
         </Box>
 
