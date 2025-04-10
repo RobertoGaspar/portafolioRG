@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
-import { Card, CardContent, Typography, Button, Chip, Grid, Box } from '@mui/material';
-import { CircularProgress } from '@mui/material'; // Para la animación de carga
+import { Card, CardContent, Typography, Button, Chip, Grid, Box, CircularProgress } from '@mui/material';
 
 const MProyectCard = ({ projectName, description, techList, isUnderConstruction, demoLink, githubLink, imageSrc }) => {
   const [isDemoLoading, setIsDemoLoading] = useState(false);
@@ -12,7 +11,7 @@ const MProyectCard = ({ projectName, description, techList, isUnderConstruction,
       setTimeout(() => {
         window.open(demoLink, '_blank');
         setIsDemoLoading(false);
-      }, 1500); // Simula la carga por 1.5 segundos antes de abrir el demo
+      }, 1500);
     }
   };
 
@@ -21,50 +20,67 @@ const MProyectCard = ({ projectName, description, techList, isUnderConstruction,
     setTimeout(() => {
       window.open(githubLink, '_blank');
       setIsGithubLoading(false);
-    }, 1500); // Simula la carga por 1.5 segundos antes de abrir GitHub
+    }, 1500);
   };
 
   return (
-    <Card sx={{ width: '100%', maxWidth: 600, margin: '20px', borderRadius: '10px', boxShadow: 3 }} className="MProyectCard">
-      {/* Imagen tomada desde la propiedad 'imageSrc' */}
-      <img
-        src={imageSrc} // Usamos la propiedad 'imageSrc' directamente
+    <Card
+      sx={{
+        width: '100%',
+        maxWidth: { xs: 300, sm: 400, md: 450 }, // Tamaños más pequeños para pantallas pequeñas
+        margin: 'auto',
+        my: 2, // Reduce el margen superior e inferior
+        borderRadius: 2,
+        boxShadow: 2,
+      }}
+    >
+      <Box
+        component="img"
+        src={imageSrc}
         alt={projectName}
-        style={{ width: '100%', height: '200px', objectFit: 'cover', borderRadius: '10px 10px 0 0' }}
+        sx={{
+          width: '100%',
+          height: { xs: 150, sm: 180 }, // Ajusta el tamaño de la imagen
+          objectFit: 'cover',
+          borderRadius: '10px 10px 0 0',
+        }}
       />
       <CardContent>
-        <Typography variant="h5" component="div" sx={{ fontWeight: 'bold', marginBottom: 1 }}>
+        <Typography variant="h6" sx={{ fontWeight: 'bold', mb: 1 }}>
           {projectName}
         </Typography>
-        <Typography variant="body2" color="text.secondary" sx={{ marginBottom: 2 }}>
+
+        <Typography variant="body2" color="text.secondary" sx={{ mb: 1 }}>
           {description}
         </Typography>
-        <Box sx={{ display: 'flex', flexWrap: 'wrap', marginBottom: 2 }}>
+
+        <Box sx={{ display: 'flex', flexWrap: 'wrap', mb: 1 }}>
           {techList.map((tech, index) => (
             <Chip
               key={index}
               label={tech}
               sx={{
-                marginRight: 1,
-                marginBottom: 1,
-                backgroundColor: '#2196f3', // Azul para el fondo del chip
-                color: 'white', // Color del texto
+                mr: 1,
+                mb: 1,
+                backgroundColor: '#2196f3',
+                color: 'white',
                 '&:hover': {
-                  transform: 'scale(1.1)', // Escala al poner el cursor sobre el chip
-                  transition: 'transform 0.3s', // Tiempo de la animación de escala
+                  transform: 'scale(1.1)',
+                  transition: 'transform 0.3s',
                 },
-                cursor: 'pointer', // Cambia el cursor para indicar que es interactivo
+                cursor: 'pointer',
               }}
             />
           ))}
         </Box>
-        <Grid container spacing={2}>
+
+        <Grid container spacing={1}>
           <Grid item xs={6}>
             <Button
               variant="contained"
               color="primary"
               fullWidth
-              disabled={isUnderConstruction || isDemoLoading} // Bloquea si está en construcción o si está cargando
+              disabled={isUnderConstruction || isDemoLoading}
               onClick={handleDemoClick}
               sx={{
                 position: 'relative',
@@ -75,20 +91,21 @@ const MProyectCard = ({ projectName, description, techList, isUnderConstruction,
             >
               {isDemoLoading ? (
                 <>
-                  <CircularProgress size={24} sx={{ position: 'absolute', left: '50%', top: '50%', marginLeft: '-12px', marginTop: '-12px' }} />
+                  <CircularProgress size={24} sx={{ position: 'absolute', left: '50%', top: '50%', ml: '-12px', mt: '-12px' }} />
                   Construyendo...
                 </>
               ) : (
-                isUnderConstruction ? 'En Construcción' : 'Demo' // Si está en construcción, muestra "En Construcción"
+                isUnderConstruction ? 'En Construcción' : 'Demo'
               )}
             </Button>
           </Grid>
+
           <Grid item xs={6}>
             <Button
               variant="contained"
               color="secondary"
               fullWidth
-              disabled={isGithubLoading} // Bloquea solo si está cargando
+              disabled={isGithubLoading}
               onClick={handleGithubClick}
               sx={{
                 position: 'relative',
@@ -99,7 +116,7 @@ const MProyectCard = ({ projectName, description, techList, isUnderConstruction,
             >
               {isGithubLoading ? (
                 <>
-                  <CircularProgress size={24} sx={{ position: 'absolute', left: '50%', top: '50%', marginLeft: '-12px', marginTop: '-12px' }} />
+                  <CircularProgress size={24} sx={{ position: 'absolute', left: '50%', top: '50%', ml: '-12px', mt: '-12px' }} />
                   Construyendo...
                 </>
               ) : (

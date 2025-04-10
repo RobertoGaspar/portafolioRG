@@ -1,11 +1,10 @@
 import React, { useState, useEffect  } from 'react';
 import { AppBar, Toolbar, IconButton, Typography, Button, Drawer, List, ListItem, ListItemText, Box } from '@mui/material';
-import { Menu as MenuIcon } from '@mui/icons-material';
-import { Link } from 'react-router-dom';
+import { Menu as MenuIcon } from '@mui/icons-material'; 
 
 function Nbar() {
   const [drawerOpen, setDrawerOpen] = useState(false);
-  const [isScrolled, setIsScrolled] = useState(false);
+  const [isScrolled, setIsScrolled] = useState(false); 
 
   // Función para detectar el scroll y cambiar el estado
   const handleScroll = () => {
@@ -34,6 +33,7 @@ function Nbar() {
   const scrollToSection = (id) => {
     const element = document.getElementById(id);
     if (element) {
+      setDrawerOpen(false); // Cierra el drawer
       element.scrollIntoView({ behavior: 'smooth' });
     }
   };
@@ -46,7 +46,7 @@ function Nbar() {
         <ListItem button onClick={() => scrollToSection('about')}>
           <ListItemText primary="Sobre mí..." />
         </ListItem>
-        <ListItem button onClick={() => scrollToSection('proyects')} >
+        <ListItem button onClick={() => scrollToSection('proyect')} >
           <ListItemText primary="Proyectos" />
         </ListItem>
         <ListItem button onClick={() => scrollToSection('contact')}>
@@ -62,8 +62,7 @@ function Nbar() {
         color: isScrolled ? 'white' : 'black',
         boxShadow: isScrolled ? 4 : 0, // Añadir sombra al hacer scroll
         transition: 'background-color 0.3s ease, box-shadow 0.3s ease', // Transición suave
-        zIndex: 10,
-        boxShadow: 'none',
+        zIndex: 10, 
         border: 'none'  }}>
       <Toolbar>
         {/* Icono de Menú para pantallas pequeñas */}

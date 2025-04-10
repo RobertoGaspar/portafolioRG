@@ -3,6 +3,9 @@ import Slider from 'react-slick';
 import { Box, Grid, Typography } from '@mui/material';
 import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
+import { motion, useInView } from 'framer-motion';
+import { useRef } from 'react';
+
 
 const MCarousellSkills = () => {
   const logos = [
@@ -19,71 +22,95 @@ const MCarousellSkills = () => {
     { name: 'SonarQube', url: 'https://1.bp.blogspot.com/-P_wQPnW4SzU/XiiW_632zlI/AAAAAAAAAD0/EtFkMUkJ1IkJrac4lBCbFKMKfLSyjEDKQCLcBGAsYHQ/s640/DV-SonarQube.png', link: 'https://www.sonarqube.org/' },
   ];
 
+  const ref = useRef(null);
+  const isInView = useInView(ref, { once: true });
+  
   const settings = {
     dots: false,
     infinite: true,
     speed: 800,
-    slidesToShow: 3, // Mostrar solo 3 elementos
+    slidesToShow: 3, // Número por defecto de elementos a mostrar
     slidesToScroll: 1,
     autoplay: true,
     autoplaySpeed: 2500,
-    centerMode: true, // Para centrar los elementos
+    centerMode: true,
     focusOnSelect: true,
     responsive: [
       {
         breakpoint: 960,
         settings: {
-          slidesToShow: 3, // En pantallas grandes
+          slidesToShow: 3,
+          centerMode: true, // Asegura que el centro se enfoque en el primer elemento
+          focusOnSelect: true,
         },
       },
       {
         breakpoint: 600,
         settings: {
-          slidesToShow: 2, // En pantallas medianas
+          slidesToShow: 2,
+          centerMode: true, // Asegura que el centro se enfoque en el primer elemento
+          focusOnSelect: true,
         },
       },
       {
         breakpoint: 480,
         settings: {
-          slidesToShow: 1, // En pantallas pequeñas
+          slidesToShow: 1, // Solo un elemento en pantallas pequeñas
+          centerMode: false, // Evita que se centren los elementos
+          focusOnSelect: true,
         },
       },
     ],
   };
 
   const handleClick = (link) => {
-    window.open(link, '_blank'); // Abre la página en una nueva pestaña
+    window.open(link, '_blank');
   };
 
-  return (
-    <Grid container spacing={2} sx={{ justifyContent: 'space-around', alignItems: 'center' }}>
-      <Box sx={{ width: '70%', my: 6, px: 2 }}>
-        <Typography variant="h4" align="center" gutterBottom sx={{ fontWeight: 'bold' }}>
-          Tecnologías
-        </Typography>
-        <Slider {...settings}>
-          {logos.map((logo, index) => (
-            <Box key={index} sx={{ textAlign: 'center', p: 2 }}>
-              <img
-                src={logo.url}
-                alt={logo.name}
-                style={{
-                  height: 200,
-                  maxWidth: '100%',
-                  objectFit: 'contain',
-                  margin: '0 auto',
-                  cursor: 'pointer', // Cambia el cursor al hacer hover
-                }}
-                onClick={() => handleClick(logo.link)} // Llama a la función handleClick con el enlace
-              />
-              <Typography variant="h6" sx={{ mt: 2 }}>
-                {logo.name}
-              </Typography>
-            </Box>
-          ))}
-        </Slider>
-      </Box>
-    </Grid>
+  return  (
+    <motion.div
+      ref={ref}
+      initial={{ opacity: 0, y: 50 }}
+      animate={isInView ? { opacity: 1, y: 0 } : {}}
+      transition={{ duration: 0.8, ease: 'easeOut' }}
+    >
+      <Grid container justifyContent="center" sx={{ px: { xs: 2, md: 10 }, my: 6 }}>
+        <Grid item xs={12}>
+          <Typography variant="h4" align="center" gutterBottom sx={{ fontWeight: 'bold' }}>
+            Tecnologías
+          </Typography>
+        </Grid>
+
+        <Grid item xs={12}>
+          <Box sx={{ width: '100%' }}>
+            <Slider {...settings}>
+              {logos.map((logo, index) => (
+                <Box key={index} sx={{ textAlign: 'center', p: 2 }}>
+                  <img
+                    src={logo.url}
+                    alt={logo.name}
+                    style={{
+                      height: 200,
+                      maxWidth: '100%',
+                      objectFit: 'contain',
+                      margin: '0 auto',
+                      cursor: 'pointer',
+                      transition: 'transform 0.3s ease-in-out',
+                    }}
+                    onClick={() => handleClick(logo.link)}
+                    onMouseEnter={(e) => (e.currentTarget.style.transform = 'scale(1.05)')}
+                    onMouseLeave={(e) => (e.currentTarget.style.transform = 'scale(1)')}
+                  />
+                  <Typography variant="h6" sx={{ mt: 2 }}>
+                    {logo.name}
+                  </Typography>
+                </Box>
+              ))}
+            </Slider>
+          </Box>
+        </Grid>
+      </Grid>
+    </motion.div>
   );
 };
 
