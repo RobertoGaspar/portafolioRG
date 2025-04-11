@@ -27,7 +27,7 @@ const MLoader = () => {
           style={{
             width: '150px', // Tamaño del ícono (puedes ajustarlo)
             height: 'auto',
-            animation: 'spin 2s linear infinite', // Puedes agregar animación si lo deseas
+            animation: 'spin 1.5s linear infinite', // Puedes agregar animación si lo deseas
           }}
         />
         <CircularProgress sx={{ marginTop: 2 }} /> {/* Si deseas añadir un círculo de carga debajo */}
