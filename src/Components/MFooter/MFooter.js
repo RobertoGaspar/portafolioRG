@@ -19,8 +19,7 @@ const MFooter = () => {
         sx={{
           backgroundColor: '#333',
           color: 'white',
-          padding: '2rem',
-          marginTop: '2rem',
+          padding: '2rem', 
           pb: 6, // Espacio inferior
         }}
       >

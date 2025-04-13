@@ -7,17 +7,17 @@ function MHeader() {
   return (
     <Box
       sx={{
-        height: '100vh',
+        minHeight: '100vh',
         width: '100%',
         backgroundImage: `url(${backgroundImage})`,
         backgroundSize: 'cover',
         backgroundPosition: 'center',
+        backgroundRepeat: 'no-repeat',
         display: 'flex',
         justifyContent: 'center',
         alignItems: 'center',
-        backgroundRepeat: 'no-repeat',
-        margin: 0,
-        padding: 0,
+        textAlign: 'center', // Asegura el centrado del contenido
+        p: 2,
       }}
     >
       <motion.div
@@ -25,6 +25,7 @@ function MHeader() {
         whileInView={{ opacity: 1, y: 0 }}
         transition={{ duration: 1 }}
         viewport={{ once: true, amount: 0.5 }}
+        style={{ width: '100%', display: 'flex', justifyContent: 'center' }}
       >
         <Box
           sx={{
@@ -34,8 +35,8 @@ function MHeader() {
             backdropFilter: 'blur(10px)',
             WebkitBackdropFilter: 'blur(10px)',
             border: '1px solid rgba(255, 255, 255, 0.2)',
+            width: '100%',
             maxWidth: { xs: '90%', sm: '80%', md: '60%' },
-            textAlign: 'center',
           }}
         >
           <motion.div
