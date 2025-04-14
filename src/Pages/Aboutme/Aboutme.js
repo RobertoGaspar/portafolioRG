@@ -5,7 +5,7 @@ import { motion, useInView } from 'framer-motion';
 
 function Aboutme() {
   const handleOpenPDF = () => {
-    window.open('/pdf/cv.pdf', '_blank');
+    window.open('/pdf/cv-normal.pdf', '_blank');
   };
 
   const ref = useRef(null);
