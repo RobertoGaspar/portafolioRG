@@ -1,15 +1,32 @@
-import React, { useRef } from 'react';
-import { Button, Grid, Typography, Box } from '@mui/material';
+import React, { useRef, useState } from 'react';
+import { Button, Grid, Typography, Box, Menu, MenuItem } from '@mui/material';
 import perfilImage from '../../img/Perfil.jpg';
 import { motion, useInView } from 'framer-motion';
 
 function Aboutme() {
-  const handleOpenPDF = () => {
-    window.open('/pdf/cv-normal.pdf', '_blank');
-  };
-
   const ref = useRef(null);
   const isInView = useInView(ref, { once: true, margin: '-100px' });
+
+  const [anchorEl, setAnchorEl] = useState(null);
+  const open = Boolean(anchorEl);
+
+  const handleClick = (event) => {
+    setAnchorEl(event.currentTarget);
+  };
+
+  const handleClose = () => {
+    setAnchorEl(null);
+  };
+
+  const handleDownload = (version) => {
+    const links = {
+      tradicional: '/pdf/cv-tradicional.pdf',
+      harvard: '/pdf/cv-harvard.pdf'
+    };
+
+    window.open(links[version], '_blank');
+    handleClose();
+  };
 
   return (
     <Grid
@@ -19,7 +36,7 @@ function Aboutme() {
       sx={{
         justifyContent: 'space-around',
         alignItems: 'center',
-        px: { xs: 2, sm: 4, md: 8 }, // margen lateral en pantallas pequeñas
+        px: { xs: 2, sm: 4, md: 8 },
         py: 6,
       }}
     >
@@ -51,9 +68,17 @@ function Aboutme() {
           </Typography>
           <br />
           <br />
-          <Button variant="contained" sx={{ backgroundColor: 'black' }} onClick={handleOpenPDF}>
+          <Button
+            variant="contained"
+            sx={{ backgroundColor: 'black' }}
+            onClick={handleClick}
+          >
             Ver mi CV
           </Button>
+          <Menu anchorEl={anchorEl} open={open} onClose={handleClose}>
+            <MenuItem onClick={() => handleDownload('tradicional')}>CV Formato Tradicional</MenuItem>
+            <MenuItem onClick={() => handleDownload('harvard')}>CV Formato Harvard</MenuItem> 
+          </Menu>
         </motion.div>
       </Grid>
 
